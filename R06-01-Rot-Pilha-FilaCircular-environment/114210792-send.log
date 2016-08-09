@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<head/><log>
+<record>
+  <date>2016-08-01T16:03:58.999-0300</date>
+  <logger>IGOR BRASILEIRO DUARTE</logger>
+  <level>FINE</level>
+  <message>File 114210792-IGOR BRASILEIRO DUARTE.zip was received. It was sent by IGOR BRASILEIRO DUARTE from IP 150.165.74.128</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2016-08-01T20:22:57.293-0300</date>
+  <logger>IGOR BRASILEIRO DUARTE</logger>
+  <level>FINE</level>
+  <message>File 114210792-IGOR BRASILEIRO DUARTE.zip was received. It was sent by IGOR BRASILEIRO DUARTE from IP 192.168.13.6</message>
+</record>
