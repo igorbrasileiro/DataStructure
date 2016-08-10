@@ -6,19 +6,37 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 		DoubleLinkedList<T> {
 
 	protected DoubleLinkedListNode<T> last;
-	private DoubleLinkedListNode<T> nillNode = new DoubleLinkedListNode<T>();
 	int size = 0;
 	
 	@Override
 	public void insertFirst(T element) {
 		
 		if (isEmpty()) {
-			insert(element);
+			head = (DoubleLinkedListNode<T>) new DoubleLinkedListNode<T>(element, new DoubleLinkedListNode<T>(), new DoubleLinkedListNode<T>());
+			last = (DoubleLinkedListNode<T>) head;
+			size++;
 		} else {
-			DoubleLinkedListNode<T> newNode = new DoubleLinkedListNode<>(element, nillNode, nillNode);
-			newNode.next = head;
-			head = newNode;
+			DoubleLinkedListNode<T> auxHead = (DoubleLinkedListNode<T>) head;
+			head = new DoubleLinkedListNode<T>(element, auxHead, auxHead.getPrevious());
+			
+			auxHead.setPrevious((DoubleLinkedListNode<T>) head);
 		}
+	}
+	
+	@Override
+	public void insert(T element) {
+		// no final
+		if(element == null) return;
+		// se cabeca e null, cria nova cabeca com element, passando o nil e seta nova cabeca com cabeca;
+		if(head.isNIL()) {
+			DoubleLinkedListNode<T> newHead = new DoubleLinkedListNode<T>(element, new DoubleLinkedListNode<T>(), new DoubleLinkedListNode<T>());
+			head = newHead;
+			last = (DoubleLinkedListNode<T>) head;
+		} else {
+			DoubleLinkedListNode<T> auxLast = last;
+			last = new DoubleLinkedListNode<T>(element, (DoubleLinkedListNode<T>) auxLast.getNext(), auxLast);
+			auxLast.setNext(last);
+		}			
 	}
 	
 	@Override
@@ -31,10 +49,9 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 	@Override
 	public void removeLast() {
 		if (!isEmpty()) {
+			DoubleLinkedListNode<T> auxLast = last;
 			last = last.getPrevious();
-			
-			
-			last.setNext(nillNode);
+			last.setNext((DoubleLinkedListNode<T>) auxLast.getNext());
 		}
 	}
 
@@ -43,38 +60,25 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 
 		if (!isEmpty()) {
 
-			SingleLinkedListNode<T> auxLeft = super.head;
+			DoubleLinkedListNode<T> auxLeft = (DoubleLinkedListNode<T>) head;
 			DoubleLinkedListNode<T> auxRight = last;
 
-			while (!acabouLista(auxLeft, auxRight)) {
+			while (!(auxLeft.getPrevious().equals(auxRight) || auxLeft.equals(auxRight))) {
 				if (auxLeft.getData().equals(element)) {
 					return auxLeft.getData();
 				}
 				if (auxRight.getData().equals(element)) {
 					return auxRight.getData();
 				}
-				auxLeft = auxLeft.next;
+				auxLeft = (DoubleLinkedListNode<T>) auxLeft.next;
 				auxRight = auxRight.previous;
 			}
+			
+			// case aux left == aux right
+			if(auxLeft.getData().equals(element)) return auxLeft.getData();
 		}
 
 		return null;
-	}
-
-	@Override
-	public void insert(T element) {
-
-		DoubleLinkedListNode<T> insertion = new DoubleLinkedListNode<T>(element, nillNode, nillNode);
-
-		if (isEmpty()) {
-			super.head = insertion;
-			last = insertion;
-		} else {
-			last.next = insertion;
-			last = insertion;
-		}
-
-		size += 1;
 	}
 
 	@Override
