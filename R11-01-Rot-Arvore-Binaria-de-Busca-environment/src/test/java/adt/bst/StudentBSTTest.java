@@ -101,8 +101,10 @@ public class StudentBSTTest {
 		int size = 12;
 		assertEquals(size, tree.size());
 
+		Object[] teste = tree.order();
 		while (!tree.isEmpty()) {
 			tree.remove(tree.getRoot().getData());
+			teste = tree.order();
 			assertEquals(--size, tree.size());
 		}
 	}
