@@ -23,6 +23,7 @@ OrderedLinkedList<T>,DoubleLinkedList<T> {
 	private DoubleLinkedListNode<T> previous;
 
 	public OrderedDoubleLinkedListImpl() {
+		super();
 		head = new DoubleLinkedListNode<>();
 		previous = new DoubleLinkedListNode<>();
 	}

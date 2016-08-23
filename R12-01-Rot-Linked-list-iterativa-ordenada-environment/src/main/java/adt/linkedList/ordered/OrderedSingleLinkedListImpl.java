@@ -27,9 +27,8 @@ OrderedLinkedList<T> {
 
 			@Override
 			public int compare(T o1, T o2) {
-				return compare(o1, o2);
+				return ((Comparable<T>) o1).compareTo(o2);
 			}
-			
 		};
 		this.head = new SingleLinkedListNode<T>();
 	}
