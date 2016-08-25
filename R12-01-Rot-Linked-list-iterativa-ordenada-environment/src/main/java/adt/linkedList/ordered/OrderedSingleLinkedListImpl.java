@@ -66,7 +66,7 @@ OrderedLinkedList<T> {
 		if(element != null) {
 			if(isEmpty()) { // head sempre iniciado nil
 				head = new SingleLinkedListNode<T>(element, head);
-			} else if(comparator.compare(element, head.getData()) < 0) {//insere no comeco
+			} else if(comparador(element, head.getData())) {//insere no comeco
 				// menor do que cabeca
 					SingleLinkedListNode<T> newNode = new SingleLinkedListNode<T>(element,head);
 					head = newNode;						
@@ -74,7 +74,7 @@ OrderedLinkedList<T> {
 				SingleLinkedListNode<T> auxNodePrev = head;
 				SingleLinkedListNode<T> auxNode = head.getNext();
 				while(!auxNode.isNIL()) {
-					if(comparator.compare(element, auxNode.getData()) < 0) { // maior que node e menor que o proximo de node
+					if(comparador(element, auxNode.getData())) { // maior que node e menor que o proximo de node
 						break;
 					} else {
 						auxNodePrev = auxNode;
@@ -96,4 +96,7 @@ OrderedLinkedList<T> {
 		this.comparator = comparator;
 	}
 
+	private boolean comparador(T element, T auxNode) {
+		return getComparator().compare(element, auxNode) < 0;
+	}
 }

@@ -26,7 +26,7 @@ public class StudentOrderedLinkedListTest {
 	private void getImplementations() {
 		// TODO O aluno deve ajustar aqui para instanciar sua implementação
 		Comparator<Integer> comparador = null;
-		lista1 = new OrderedDoubleLinkedListImpl<>();
+		lista1 = new OrderedSingleLinkedListImpl<>();
 		lista2 = new OrderedDoubleLinkedListImpl<>((o1, o2) -> (o1.compareTo(o2)));
 	}
 
@@ -65,10 +65,11 @@ public class StudentOrderedLinkedListTest {
 	@Test
 	public void testRemove() {
 		Assert.assertEquals(3, lista1.size());
+		//((OrderedDoubleLinkedListImpl<Integer>) lista1).removeFirst(); // 2-3
+		//((OrderedDoubleLinkedListImpl<Integer>) lista1).removeLast(); // 2
 		lista1.remove(2);
 		lista1.remove(1);
 		Assert.assertEquals(1, lista1.size());
-
 	}
 
 	@Test

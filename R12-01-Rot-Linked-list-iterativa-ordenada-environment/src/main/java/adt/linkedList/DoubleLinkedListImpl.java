@@ -40,6 +40,7 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 	@Override
 	public void removeFirst() {
 		if (!isEmpty()) {
+			((DoubleLinkedListNode<T>) head.getNext()).setPrevious(((DoubleLinkedListNode<T>) head).getPrevious());
 			head = head.getNext();
 		}
 	}
@@ -47,9 +48,8 @@ public class DoubleLinkedListImpl<T> extends SingleLinkedListImpl<T> implements
 	@Override
 	public void removeLast() {
 		if (!isEmpty()) {
-			DoubleLinkedListNode<T> auxLast = last;
+			last.getPrevious().setNext(last.getNext());
 			last = last.getPrevious();
-			last.setNext((DoubleLinkedListNode<T>) auxLast.getNext());
 		}
 	}
 
