@@ -32,32 +32,30 @@ public class CircularQueue<T> implements Queue<T> {
 		if(isEmpty()) throw new QueueUnderflowException();
 		
 		// incrementa o head e remove o da posicao, comeca com -1 / decrementa quantidade de elementos
-		head++;
+		head++; // passa a ser pos do elemento a remover
 		head = head % array.length;
 		elements--;
-		return array[head];
+		return array[head]; // elemento removido
 	}
 
 	@Override
 	public T head() {
 		if(isEmpty()) return null;
 		
-		// head +1 por que head comeca de -1
+		// head +1 por que head comeca de -1, e so incremento quando removo
 		return array[head+1];
 	}
 
 	@Override
 	public boolean isEmpty() {
 		// se quantidade de elemetnos for 0 esta vazia
-		if(elements != 0) return false;
-
-		return true;
+		return (elements == 0);
 	}
 
 	@Override
 	public boolean isFull() {
 		// se quantidade de elementos for do tamamho da lista return full;		
-		return !(elements < array.length);
+		return elements == array.length;
 	}
 
 }

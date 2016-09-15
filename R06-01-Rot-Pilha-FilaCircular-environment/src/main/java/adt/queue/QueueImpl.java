@@ -39,7 +39,7 @@ public class QueueImpl<T> implements Queue<T> {
 	
 	private void shiftLeft(){
 		// varre o array ate a penultima posicao 
-		for(int i = 0; i < array.length - 1; i++) {
+		for(int i = 0; i <= tail; i++) {
 			array[i] = array[i+1];
 		}
 	}
@@ -60,6 +60,7 @@ public class QueueImpl<T> implements Queue<T> {
 		if(isEmpty()) throw new QueueUnderflowException();
 		
 		T saida = array[0];
+		tail--;
 		// passar os elemetos para esquerda
 		shiftLeft();
 		

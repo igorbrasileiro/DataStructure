@@ -67,6 +67,7 @@ public class StudentLinkedListTest {
 		Assert.assertEquals(1, lista1.size());
 		
 		Assert.assertNotEquals(3, lista1.size());
+		Assert.assertEquals(null, lista1.search(4));
 		lista1.remove(4);
 		lista1.remove(2);
 		lista1.remove(1);

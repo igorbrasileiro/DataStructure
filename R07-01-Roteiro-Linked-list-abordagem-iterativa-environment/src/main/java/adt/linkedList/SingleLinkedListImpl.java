@@ -3,112 +3,98 @@ package adt.linkedList;
 public class SingleLinkedListImpl<T> implements LinkedList<T> {
 
 	protected SingleLinkedListNode<T> head;
-	
-	
-	
+	protected int size;
+ 
 	public SingleLinkedListImpl() {
-		this.head = new SingleLinkedListNode<T>();
+		this.head = new SingleLinkedListNode<>(null, new SingleLinkedListNode<T>());
+		this.size = 0;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		if(head.isNIL()) return true;
-		
-		return false;
+		if(size() == 0){
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
 	public int size() {
-		int result = 0;
-		
-		if(isEmpty()) return result;
-		
-		SingleLinkedListNode<T> aux = head;
-		
-		while(!aux.isNIL()) {
-			result++;
-			aux = aux.getNext();
-		}
-		
-		return result;
+		return this.size;
 	}
 
 	@Override
 	public T search(T element) {
-		T result = null;
-		
-		if(isEmpty()) return result;
-		
-		SingleLinkedListNode<T> auxHead = head;
-		// enquanto proximo elemento seja diferente de null
-		while(!auxHead.isNIL()) {
-			if(auxHead.getData().equals(element)) {
-				result = auxHead.getData(); 
-				break;
+		SingleLinkedListNode<T> node = getHead();
+
+		while(!node.isNIL()){
+			if(node.getData().equals(element)){
+				return node.getData();
 			}
-			auxHead = auxHead.getNext();
+			node = node.getNext();
 		}
-		
-		return result;
+
+		return null;
 	}
 
 	@Override
 	public void insert(T element) {
-		// TODO Auto-generated method stub
-		
-		if(element == null) return;
-		SingleLinkedListNode<T> auxHead = head;
-		// se cabeca e null, cria nova cabeca com element, passando o nil e seta nova cabeca com cabeca;
-		if(head.isNIL()) {
-			SingleLinkedListNode<T> newHead = new SingleLinkedListNode<T>(element, head);
-			head = newHead;
-		} else {
-			// procura ate achar o ultimo elemento que anteceda nil
-			while(!auxHead.getNext().isNIL()) {
-				auxHead = auxHead.getNext();
-			}
-			// crio o elemento nov e passo o next do aux, que e nill
-			SingleLinkedListNode<T> newHead = new SingleLinkedListNode<>(element, auxHead.getNext());
-			// subistituo o proximo de auxhead pelo novo elemento criado
-			auxHead.setNext(newHead);
+
+		SingleLinkedListNode<T> node = getHead();
+
+		while(!node.isNIL()){
+			node = node.getNext();
 		}
+
+		node.setData(element);
+		node.setNext(new SingleLinkedListNode<T>());
+		size++;
 	}
 
 	@Override
 	public void remove(T element) {
-		
-		if(head.getData().equals(element)) head = head.getNext();
-		
-		else {
-			SingleLinkedListNode<T> auxNext = head;
-			SingleLinkedListNode<T> auxPrevious = null;
-			// procura até nó seja antes do nill e se valor diferente do elemento recebido, caso ache para
-			while(!auxNext.isNIL() && !auxNext.getData().equals(element)) {
-				auxPrevious = auxNext;
-				auxNext = auxNext.getNext();
+		SingleLinkedListNode<T> node = getHead();
+		SingleLinkedListNode<T> previous = getHead();
+
+		if(!head.isNIL() && head.getData().equals(element)){
+			head = head.getNext();
+			size--;
+			return;
+		}
+
+		while(!node.isNIL()){
+
+			if(node.getData().equals(element)){
+				previous.setNext(node.getNext());
+				size--;
+				return;
 			}
-			// seta o next do no anterior como proximo valor, o do meio e removido, ja que nao tem apontador
-			if(!auxNext.isNIL()) {
-				// o anterior ao escolhido, que é previous, recebe o auxNext.next, por que next e o elemento a remover
-				auxPrevious.setNext(auxNext.getNext());
-			}
+
+			previous = node;
+			node = node.getNext();
 		}
 	}
+
+	@SuppressWarnings("unchecked")
 	@Override
 	public T[] toArray(){
-		@SuppressWarnings("unchecked")
-		T[] result = (T[]) new Object[size()];
-		
-		SingleLinkedListNode<T> aux = head;
-		int index = 0;
-		while(!aux.isNIL()) {
-			result[index] = aux.getData();
-			aux = aux.getNext();
-			index++;
+
+		SingleLinkedListNode<T> node = getHead();
+		int sizeList = size();
+		T[] array = (T[]) new Object[sizeList];
+		int arrayIndex = 0;
+
+		if(isEmpty()){
+			return array;
 		}
-		
-		return result;
+
+		while(!node.isNIL()){
+			array[arrayIndex++] = node.getData();
+			node = node.getNext();
+		}
+
+		return array;
 	}
 
 	public SingleLinkedListNode<T> getHead() {
@@ -119,5 +105,4 @@ public class SingleLinkedListImpl<T> implements LinkedList<T> {
 		this.head = head;
 	}
 
-	
 }
