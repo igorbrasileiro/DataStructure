@@ -60,6 +60,8 @@ public class SplayTreeImpl<T extends Comparable<T>> extends BSTImpl<T>
 			node.setData(element);
 			node.setLeft(new BSTNode<T>());
 			node.setRight(new BSTNode<T>());
+            node.getLeft().setParent(node);
+            node.getRight().setParent(node);
 			if (!node.equals(root)) { // pai de root e null
 				node.setParent(parent);
 			}
@@ -77,11 +79,15 @@ public class SplayTreeImpl<T extends Comparable<T>> extends BSTImpl<T>
         if(element == null || root == null) return;
 
         BSTNode<T> node = super.search(root,element); // retorna o nil abaixo do parent ou o elemento que quer remover
-        if(node.isEmpty()) splay((BSTNode<T>) node.getParent());
-        else {
-            super.removeRecursive(node); // remove da BST
-            if(node.getParent() != null) splay((BSTNode<T>) node.getParent());
-        }
+        BSTNode<T> nodeParent = (BSTNode<T>) node.getParent();
+
+            if(node.isEmpty() && nodeParent != null) splay((BSTNode<T>) node.getParent());
+            else if(!node.isEmpty()){
+
+                super.removeRecursive(node); // remove da BST
+                if(nodeParent != null) splay((BSTNode<T>) nodeParent);
+            }
+
     }
 
     @Override
