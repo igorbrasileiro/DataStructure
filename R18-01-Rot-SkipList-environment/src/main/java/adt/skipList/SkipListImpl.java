@@ -148,6 +148,9 @@ public class SkipListImpl<T> implements SkipList<T> {
 
 			// ajeitar a altura
 			while(this.height-1 > 0 && root.getForward()[height-1] == NIL) {
+				if(!USE_MAX_HEIGHT_AS_HEIGHT){
+					root.getForward()[height-1] =  null; // remover apontador e completar no connectRootToNil
+				}
 				height--;
 			}
 		}
@@ -211,6 +214,8 @@ public class SkipListImpl<T> implements SkipList<T> {
 			index++;
 			auxNode = auxNode.getForward(0);
 		}
+
+
 
 		return result;
 	}
